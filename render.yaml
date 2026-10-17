@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: dali
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    # One worker only: call state and the scheduler live in memory.
+    startCommand: gunicorn -w 1 -b 0.0.0.0:$PORT server:app
+    healthCheckPath: /health
+    envVars:
+      - key: PLIVO_AUTH_ID
+        sync: false
+      - key: PLIVO_AUTH_TOKEN
+        sync: false
+      - key: PLIVO_FROM
+        sync: false
+      - key: OWNER_PHONE
+        sync: false
+      - key: PUBLIC_BASE_URL
+        sync: false
+      - key: OWNER_NAME
+        value: Basile
