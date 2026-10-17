@@ -12,6 +12,7 @@ class WakeConfig:
     retry_every_minutes: int = 10
     stop_at: time = time(8, 0)  # exclusive: no call is placed at or after this time
     weather_location: str = "Kigali, Rwanda"
+    weather_location_query: str = "Kigali,RW"  # OpenWeatherMap city query
     ambience_file: str = "audio/morning_birds.mp3"
     photo_prompts: tuple = field(
         default=(

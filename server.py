@@ -17,9 +17,10 @@ from xml.sax.saxutils import escape
 
 from flask import Flask, Response, request
 
-from dali.briefing import Weather, build_briefing
+from dali.briefing import build_briefing
 from dali.config import WakeConfig
 from dali.scheduler import WakeState, confirm, next_call, record_attempt, window_closed
+from dali.weather import fetch_weather
 
 app = Flask(__name__)
 CONFIG = WakeConfig()
@@ -49,9 +50,9 @@ def _now() -> datetime:
     return datetime.now(CONFIG.tz)
 
 
-def _fetch_weather() -> Weather | None:
-    """Placeholder until an OpenWeatherMap key is added. Returns None so the briefing says so."""
-    return None
+def _fetch_weather():
+    """Current weather for the owner's location (Kigali until location detection is added)."""
+    return fetch_weather(CONFIG.weather_location_query)
 
 
 def _fetch_events(day: date) -> list:
